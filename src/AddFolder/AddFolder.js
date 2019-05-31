@@ -41,7 +41,25 @@ export default class AddFolder extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const {name} = this.state;
-    console.log(name);
+    const nameObj = { name: name}
+    const POSTbody = JSON.stringify(nameObj)
+    let error = false;
+    fetch('http://localhost:9090/folders', {
+      method: 'POST',
+      headers: {'content-type':'application/json'},
+      body: POSTbody
+      })
+    .then(res => {
+      if (!res.ok) {
+        error = {code: res.statusText}
+      }
+      console.log(res.statusText);
+      })
+    .catch(error => console.log(error))
+
+    // 1. Need to make POST request to the API
+    // 2. Repeat this process for Add Note component
+    // 3. Wrap Error Boundaries around these thigns
   }
   render(){
     const {name, nameValid, validationMessages} = this.state
