@@ -38,3 +38,4 @@ export default function NoteListMain(props) {
 NoteListMain.defaultProps = {
   notes: [],
 }
+

@@ -12,6 +12,7 @@ import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import './App.css';
 import NotefulContext from '../NotefulContext/NotefulContext'
 import FolderError from '../FolderError/FolderError'
+import NoteError from '../NoteError/NoteError'
 
 class App extends Component {
     state = {
@@ -72,7 +73,15 @@ class App extends Component {
                         )
                     }}
                 />
-                <Route path="/add-note" component={NotePageNav} />
+                <Route 
+                    path="/add-note" component={NotePageNav} 
+                    render={routeProps => {
+                        return (
+                            <NoteError>
+                                <AddNote></AddNote>
+                            </NoteError>
+                        )
+                    }}/>
             </>
         );
     }
