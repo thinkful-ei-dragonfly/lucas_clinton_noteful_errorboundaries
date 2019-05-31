@@ -5,7 +5,8 @@ import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
-import dummyStore from '../dummy-store';
+// import dummyStore from '../dummy-store';
+import AddFolder from '../AddFolder/AddFolder'
 import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import './App.css';
 
@@ -16,9 +17,20 @@ class App extends Component {
     };
 
     componentDidMount() {
-        // fake date loading from API call
-        setTimeout(() => this.setState(dummyStore), 600);
-    }
+
+    Promise.all([
+        fetch('http://localhost:9090/folders').then(res => res.json())
+      , fetch('http://localhost:9090/notes').then(res => res.json())
+      ])
+      .then(results => {
+        console.log(results);
+        // debugger;
+        this.setState({
+          folders: results[0],
+          notes: results[1]
+      });
+    })
+  }
 
     renderNavRoutes() {
         const {notes, folders} = this.state;
@@ -47,7 +59,7 @@ class App extends Component {
                         return <NotePageNav {...routeProps} folder={folder} />;
                     }}
                 />
-                <Route path="/add-folder" component={NotePageNav} />
+                <Route path="/add-folder" component={AddFolder} />
                 <Route path="/add-note" component={NotePageNav} />
             </>
         );
