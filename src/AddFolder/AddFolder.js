@@ -8,6 +8,7 @@ export default class AddFolder extends React.Component {
       name: '',
       nameValid: false,
       formValid: false,
+      hasError: false,
       validationMessages: {
         name: '',
       }

@@ -10,6 +10,8 @@ import AddFolder from '../AddFolder/AddFolder'
 import AddNote from '../AddNote/AddNote'
 import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import './App.css';
+import NotefulContext from '../NotefulContext/NotefulContext'
+import FolderError from '../FolderError/FolderError'
 
 class App extends Component {
     state = {
@@ -58,7 +60,18 @@ class App extends Component {
                         return <NotePageNav {...routeProps} folder={folder} />;
                     }}
                 />
-                <Route path="/add-folder" component={AddFolder} />
+                {/* <Route path="/add-folder" component={AddFolder} /> */}
+                
+                <Route
+                    path='/add-folder'
+                    render={routeProps => {
+                        return(
+                            <FolderError>
+                                <AddFolder></AddFolder>
+                            </FolderError>
+                        )
+                    }}
+                />
                 <Route path="/add-note" component={NotePageNav} />
             </>
         );
@@ -102,7 +115,9 @@ class App extends Component {
     }
 
     render() {
+        const contextValue = {notes: this.state.notes, folders: this.state.folders}
         return (
+            <NotefulContext.Provider value={contextValue}>
             <div className="App">
                 <nav className="App__nav">{this.renderNavRoutes()}</nav>
                 <header className="App__header">
@@ -113,6 +128,7 @@ class App extends Component {
                 </header>
                 <main className="App__main">{this.renderMainRoutes()}</main>
             </div>
+            </NotefulContext.Provider>
         );
     }
 }
