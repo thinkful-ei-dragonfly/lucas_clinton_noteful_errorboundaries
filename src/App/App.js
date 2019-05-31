@@ -7,6 +7,7 @@ import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
 // import dummyStore from '../dummy-store';
 import AddFolder from '../AddFolder/AddFolder'
+import AddNote from '../AddNote/AddNote'
 import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import './App.css';
 
@@ -23,8 +24,6 @@ class App extends Component {
       , fetch('http://localhost:9090/notes').then(res => res.json())
       ])
       .then(results => {
-        console.log(results);
-        // debugger;
         this.setState({
           folders: results[0],
           notes: results[1]
@@ -97,6 +96,7 @@ class App extends Component {
                         return <NotePageMain {...routeProps} note={note} />;
                     }}
                 />
+              <Route path="/add-note" component={AddNote} />
             </>
         );
     }

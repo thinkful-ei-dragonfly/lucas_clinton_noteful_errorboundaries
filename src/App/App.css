@@ -38,3 +38,16 @@
   height: calc(100vh - 120px);
   overflow: auto;
 }
+
+form {
+  color: white;
+}
+
+.error {
+  color: red;
+  background: yellow;
+}
+
+input {
+  margin-bottom: 15px;
+}
