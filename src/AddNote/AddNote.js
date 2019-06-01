@@ -30,16 +30,16 @@ export default class AddNote extends React.Component {
   }
   validateName(name) {
     const fieldErrors = {...this.state.validationMessages};
-    let nameValid = true;
+    this.nameValid = true;
     let hasError = false
 
     if (name.length === 0 || name.length < 5) {
       fieldErrors.name = "Name needs to be at least 5 characters long"
-      nameValid = false
+      this.nameValid = false
       hasError = true
     } else {
       fieldErrors.name = ''
-      nameValid = true
+      this.nameValid = true
       hasError = false
     }
     this.setState({validationMessages: fieldErrors, nameValid: !hasError}, this.formValid)

@@ -62,24 +62,10 @@ class App extends Component {
                     }}
                 />
                 <Route
-                    path='/add-folder'
-                    render={routeProps => {
-                        return(
-                            <FolderError>
-                                <AddFolder value="hello"></AddFolder>
-                            </FolderError>
-                        )
-                    }}
-                />
+                    path="/add-folder" component={NotePageNav}/>
                 <Route
                     path="/add-note" component={NotePageNav}
-                    render={routeProps => {
-                        return (
-                            <NoteError>
-                                <AddNote></AddNote>
-                            </NoteError>
-                        )
-                    }}/>
+                    />
             </>
         );
     }
@@ -114,6 +100,16 @@ class App extends Component {
                         const {noteId} = routeProps.match.params;
                         const note = findNote(notes, noteId);
                         return <NotePageMain {...routeProps} note={note} />;
+                    }}
+                />
+                <Route
+                    path='/add-folder'
+                    render={routeProps => {
+                        return(
+                            <FolderError>
+                                <AddFolder value="hello"></AddFolder>
+                            </FolderError>
+                        )
                     }}
                 />
               <Route path="/add-note" component={AddNote} />
