@@ -1,6 +1,7 @@
 import React from 'react'
 import ValidationError from '../ValidationError/ValidationError'
 import NotefulContext from '../NotefulContext/NotefulContext'
+import PropTypes from 'prop-types'
 
 
 export default class AddNote extends React.Component {
@@ -10,45 +11,23 @@ export default class AddNote extends React.Component {
     this.state = {
       name: '',
       content:'',
-      // folder: '',
       nameValid: false,
-      // folderValid: false,
       contentValid: false,
       formValid: false,
       hasError: false,
       validationMessages: {
         name: '',
-        // folder: '',
         content: ''
       }
     }
   }
-  // setFolder(folder) {
-  //   this.setState({folder}, () => this.validateFolder(folder));
-  // }
+
   setName(name) {
     this.setState({name}, () => this.validateName(name));
   }
   setContent(content){
     this.setState({content}, () => this.validateContent(content))
   }
-  // validateFolder(folder) {
-  //      const fieldErrors = {...this.state.validationMessages};
-  //      let folderValid = true;
-  //      let hasError = false
-
-  //      folder = folder.replace(/[\s-]/g, ''); // Remove whitespace and dashes
-  //      if (folder.length < 3 || folder.length === 0) { // Check if it's 9 characters long
-  //          fieldErrors.folder = 'Folder name must be at least three characters long';
-  //          folderValid = false;
-  //          hasError = true
-  //      } else {
-  //        fieldErrors.folder = '';
-  //        folderValid = true
-  //        hasError = false
-  //      }
-  //      this.setState({validationMessages: fieldErrors, folderValid: !hasError}, this.formValid);
-  // }
   validateName(name) {
     const fieldErrors = {...this.state.validationMessages};
     let nameValid = true;
@@ -143,4 +122,15 @@ export default class AddNote extends React.Component {
       </form>
     )
   }
+}
+AddNote.propTypes = {
+  name: PropTypes.string.isRequired,
+  folder: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired
+}
+
+AddNote.defaultProps = {
+  name: 'Note Name',
+  folder: '12345',
+  content: 'lorem ipsum lorem ipsum'
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import ValidationError from '../ValidationError/ValidationError'
+import PropTypes from 'prop-types'
 
 export default class AddFolder extends React.Component {
   constructor(props){
@@ -59,7 +60,7 @@ export default class AddFolder extends React.Component {
     .catch(error => console.log(error))
   }
   render(){
-    const {name, nameValid, validationMessages} = this.state
+    const {nameValid, validationMessages} = this.state
     return (
       <form className="newFolderForm" onSubmit={e => this.handleSubmit(e)}>
         <label htmlFor="folder">Folder Name
@@ -72,4 +73,11 @@ export default class AddFolder extends React.Component {
       </form>
     )
   }
+}
+
+AddFolder.propTypes = {
+  value: PropTypes.string.isRequired
+}
+AddFolder.defaultProps = {
+  value: 'Folder'
 }

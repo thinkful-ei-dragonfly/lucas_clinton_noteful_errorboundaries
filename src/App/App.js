@@ -61,20 +61,18 @@ class App extends Component {
                         return <NotePageNav {...routeProps} folder={folder} />;
                     }}
                 />
-                {/* <Route path="/add-folder" component={AddFolder} /> */}
-                
                 <Route
                     path='/add-folder'
                     render={routeProps => {
                         return(
                             <FolderError>
-                                <AddFolder></AddFolder>
+                                <AddFolder value="hello"></AddFolder>
                             </FolderError>
                         )
                     }}
                 />
-                <Route 
-                    path="/add-note" component={NotePageNav} 
+                <Route
+                    path="/add-note" component={NotePageNav}
                     render={routeProps => {
                         return (
                             <NoteError>
