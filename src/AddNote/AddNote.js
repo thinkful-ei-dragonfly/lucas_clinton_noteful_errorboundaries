@@ -49,12 +49,17 @@ export default class AddNote extends React.Component {
     let contentValid = true;
     let hasError = false
 
-    if (content.length === 0 || content.length < 10) {
-      fieldErrors.content = 'Note content should be at least 10 characters long';
+    if (content.length === 0) {
+      fieldErrors.content = 'Note content cannot be emptry';
       contentValid = false;
       hasError = true;
     }
     else {
+      if (content.length < 10) {
+        fieldErrors.content = "Note must be at least 10 characters long";
+        contentValid = false;
+        hasError = true;
+      }
       fieldErrors.content = ''
       contentValid = true;
       hasError = false;
@@ -70,7 +75,13 @@ export default class AddNote extends React.Component {
     e.preventDefault();
     const {name, content} = this.state;
     const folder = e.target.folder.value;
-    const noteBody = {folderId: folder, name: name, content: content}
+    const now = new Date();
+    // We weren't previously providing a modified date, now we are
+    const noteBody = {
+      folderId: folder,
+      name: name,
+      content: content,
+      modified: now}
     const POSTbody = JSON.stringify(noteBody)
     let error = false;
     fetch('http://localhost:9090/notes', {
@@ -85,7 +96,9 @@ export default class AddNote extends React.Component {
         return res.json();
       })
       .then(data => {
+        alert(`Your new note was created! You typed "${data.content}"`)
         console.log('Your new note is', data)
+        window.location.href = '/'
         })
     .catch(error => console.log(error))
   }
